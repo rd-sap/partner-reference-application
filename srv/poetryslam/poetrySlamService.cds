@@ -47,8 +47,8 @@ service PoetrySlamService @(
       )
       action publish() returns PoetrySlams;
 
-      // TODO
-      // Define a bound action to create a Poetry Slam with AI
+    // TODO
+    // Define a bound action to create a Poetry Slam with AI
 
     }
 
@@ -101,7 +101,9 @@ service PoetrySlamService @(
 
   // Currencies
   entity Currencies  as projection on sap.common.Currencies;
-  
+  // Languages
+  entity Language    as projection on sap.common.Languages;
+
   // TODO
   // Define a Language Entity based on sap.common.Languages
 
