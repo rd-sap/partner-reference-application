@@ -104,28 +104,9 @@ module.exports = async (srv) => {
   // Implementation of entity actions (entity PoetrySlams)
   // ----------------------------------------------------------------------------
 
-  // Entity action: Create a poetry slam with generative artificial intelligence
-  srv.on('createWithAI', async (req) => {
-    // GenAI constructor is synchronous
-    // It returns a promise as soon as it is resolved the instance can be used
-    const genAI = new GenAI();
+  // TODO
+  // Create a custom event handler to create a Poetry Slam supported by AI
 
-    await genAI.initializeModels();
-
-    // Check if the deployment does already exist if not create one
-    if (!(await genAI.checkAndCreateDeployment(req))) {
-      return;
-    }
-
-    const response = await genAI.callAI(
-      req.data.tags,
-      req.data.language,
-      req.data.rhyme,
-      req
-    );
-
-    return GenAI.createPoetrySlamWithAI(response, req, srv, db);
-  });
 
   // Entity action "cancel": Set the status of poetry slam to canceled
   // Note: Our entity action "cancel" is different from the core service "CANCEL"

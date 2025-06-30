@@ -246,11 +246,8 @@ annotate service.PoetrySlams with @(
         Action: 'PoetrySlamService.publish',
         Label : '{i18n>publish}'
       },
-      {
-        $Type : 'UI.DataFieldForAction',
-        Action: 'PoetrySlamService.createWithAI',
-        Label : '{i18n>createWithAI}'
-      },
+      // Add UI-Action to create a Poetry Slam with AI
+      // TODO
       {
         $Type: 'UI.DataField',
         Value: number
