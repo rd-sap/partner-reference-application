@@ -10,7 +10,8 @@ const {
 
 const uniqueNumberGenerator = require('../lib/uniqueNumberGenerator');
 
-const GenAI = require('../lib/genAI');
+// TODO
+// Import the custom generative ai capabilities
 
 module.exports = async (srv) => {
   const db = await cds.connect.to('db');
