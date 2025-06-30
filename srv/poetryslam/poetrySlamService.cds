@@ -104,9 +104,6 @@ service PoetrySlamService @(
   // Languages
   entity Language    as projection on sap.common.Languages;
 
-  // TODO
-  // Define a Language Entity based on sap.common.Languages
-
   // ----------------------------------------------------------------------------
   // Function to get user information (example for entity-independend function)
 
