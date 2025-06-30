@@ -35,6 +35,7 @@ modules:
       - name: poetry-slams-auth
       - name: poetry-slams-db
       - name: poetry-slams-destination
+      - name: poetry-slams-aicore
     provides:
       - name: poetry-slams-srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
@@ -288,3 +289,10 @@ resources:
     parameters:
       service: html5-apps-repo
       service-plan: app-runtime
+
+    # AI Core Service
+  - name: poetry-slams-aicore
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: aicore
+      service-plan: extended

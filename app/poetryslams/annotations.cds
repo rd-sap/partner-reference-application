@@ -247,6 +247,11 @@ annotate service.PoetrySlams with @(
         Label : '{i18n>publish}'
       },
       {
+        $Type : 'UI.DataFieldForAction',
+        Action: 'PoetrySlamService.createWithAI',
+        Label : '{i18n>createWithAI}'
+      },
+      {
         $Type: 'UI.DataField',
         Value: number
       },

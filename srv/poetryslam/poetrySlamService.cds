@@ -10,10 +10,10 @@ service PoetrySlamService @(
   // ----------------------------------------------------------------------------
   // Entity inclusions
 
-  // Poetry Slams (draft enabled)
+      // Poetry Slams (draft enabled)
   @odata.draft.enabled
-  @Common.SemanticObject: 'poetryslams'
-  @Common.SemanticKey   : [ID]
+      @Common.SemanticObject: 'poetryslams'
+      @Common.SemanticKey   : [ID]
   entity PoetrySlams as
     select from poetrySlamManagerModel.PoetrySlams {
       // Selects all fields of the PoetrySlams domain model
@@ -33,7 +33,7 @@ service PoetrySlamService @(
         // Determines that poetryslam entity is used when the action is performed
         cds.odata.bindingparameter.name: 'poetryslam'
       )
-      action cancel()  returns PoetrySlams;
+      action cancel()                      returns PoetrySlams;
 
       // Action: Publish
       @(
@@ -45,8 +45,49 @@ service PoetrySlamService @(
         // Determines that poetryslam entity is used when the action is performed
         cds.odata.bindingparameter.name: 'poetryslam'
       )
-      action publish() returns PoetrySlams;
-    };
+      action publish()                     returns PoetrySlams;
+
+      @(cds.odata.bindingparameter.collection)
+      action createWithAI(
+                          @(
+                            title: '{i18n>languageInput}',
+                            mandatory: true,
+                            Common: {
+                              ValueListWithFixedValues: false,
+                              ValueList               : {
+                                $Type         : 'Common.ValueListType',
+                                CollectionPath: 'Language',
+                                Parameters    : [
+                                  {
+                                    $Type            : 'Common.ValueListParameterInOut',
+                                    ValueListProperty: 'name',
+                                    LocalDataProperty: language,
+                                  },
+                                  {
+                                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                                    ValueListProperty: 'code'
+                                  },
+                                  {
+                                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                                    ValueListProperty: 'descr'
+                                  }
+                                ]
+                              },
+                            }
+                          )
+                          language : String,
+                          @(
+                            title: '{i18n>tagsInput}',
+                            UI.Placeholder: '{i18n>placeholder}',
+                            mandatory: true
+                          )
+                          tags : String,
+                          @(
+                            title: '{i18n>rhymeInput}',
+                            UI.ParameterDefaultValue: true
+                          )
+                          rhyme : Boolean) returns PoetrySlams;
+    }
 
   // Visitors
   @readonly
@@ -57,9 +98,9 @@ service PoetrySlamService @(
       * // Selects all fields of the Visitors database model
     };
 
-  // Visits
-  @Common.SemanticObject: 'visits'
-  @Common.SemanticKey   : [ID]
+      // Visits
+  @Common.SemanticObject : 'visits'
+      @Common.SemanticKey: [ID]
   entity Visits      as
     projection on poetrySlamManagerModel.Visits {
       *, // Selects all fields of the Visits database model
@@ -97,6 +138,8 @@ service PoetrySlamService @(
 
   // Currencies
   entity Currencies  as projection on sap.common.Currencies;
+  // Languages
+  entity Language    as projection on sap.common.Languages;
 
   // ----------------------------------------------------------------------------
   // Function to get user information (example for entity-independend function)
