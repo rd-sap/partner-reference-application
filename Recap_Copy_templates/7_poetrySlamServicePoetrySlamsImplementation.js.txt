@@ -1,5 +1,8 @@
 srv/poetryslam/poetrySlamServicePoetrySlamsImplementation.js
 
+  // TODO7a
+  const GenAI = require('../lib/genAI');
+
   // TODO7
 
   // Entity action: Create a poetry slam with generative artificial intelligence
