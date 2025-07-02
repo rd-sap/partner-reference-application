@@ -137,37 +137,15 @@ static AI_PROMPT_INTRO =
         `Output text completion tokens consumed: ${tokenUsage.completion_tokens}\n`
     );
 
-    let responseObject;
-    try {
-      responseObject = JSON.parse(response.getContent());
-    } catch (error) {
-      req.error(httpCodes.internal_server_error, 'ACTION_AI_NO_ACCESS');
-      console.error(
-        `CREATE_WITH_AI: AI response has not the correct JSON format: ${error}`
-      );
-      return { title: '', description: '' };
-    }
-
-  if (
-      !Object.prototype.hasOwnProperty.call(responseObject, 'title') ||
-      !Object.prototype.hasOwnProperty.call(responseObject, 'description')
-    ) {
-      req.error(httpCodes.internal_server_error, 'ACTION_AI_NO_ACCESS');
-      console.error(
-        `CREATE_WITH_AI: AI response has not the correct JSON format`
-      );
-      return { title: '', description: '' };
-    }
-
-    return responseObject;
+   
 
 
 
 
- // TODO6
+    // TODO6
     // Create and return a draft entity of a Poetry Slam based on the given result of the call to the LLM
 
-     const { DraftAdministrativeData } = srv.entities;
+    const { DraftAdministrativeData } = srv.entities;
     const { PoetrySlams } = srv.entities;
 
     const insertResult = await db.run(
@@ -262,3 +240,12 @@ mta.yaml
 
  # TODO9
    - name: poetry-slams-aicore
+
+
+
+
+TODO 10
+npm ci
+
+TODO 11
+npm run start
