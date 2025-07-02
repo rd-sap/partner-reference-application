@@ -153,9 +153,31 @@ class GenAI {
     // TODO5
     // Build and send a prompt to the LLM
     // Log the token usage
-    // Parse the response to a valid JSON format
+    const response = null;
 
-    return;
+    let responseObject;
+    try {
+      responseObject = JSON.parse(response?.getContent());
+    } catch (error) {
+      req.error(httpCodes.internal_server_error, 'ACTION_AI_NO_ACCESS');
+      console.error(
+        `CREATE_WITH_AI: AI response has not the correct JSON format: ${error}`
+      );
+      return { title: '', description: '' };
+    }
+
+    if (
+      !Object.prototype.hasOwnProperty.call(responseObject, 'title') ||
+      !Object.prototype.hasOwnProperty.call(responseObject, 'description')
+    ) {
+      req.error(httpCodes.internal_server_error, 'ACTION_AI_NO_ACCESS');
+      console.error(
+        `CREATE_WITH_AI: AI response has not the correct JSON format`
+      );
+      return { title: '', description: '' };
+    }
+
+    return responseObject;
   }
 
   // Creates a poetry slam with AI data and shows it as draft
@@ -164,7 +186,7 @@ class GenAI {
     // Create and return a draft entity of a Poetry Slam based on the given result of the call to the LLM
 
 
-    
+
     return null;
   }
 }
