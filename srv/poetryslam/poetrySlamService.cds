@@ -47,7 +47,7 @@ service PoetrySlamService @(
       )
       action publish() returns PoetrySlams;
 
-    // TODO
+    // TODO1
     // Define a bound action to create a Poetry Slam with AI
 
     }

@@ -5,7 +5,7 @@ const { httpCodes } = require('./codes');
 
 class GenAI {
   chatClient;
-  // TODO
+  // TODO4
   // Add prompt information
   static AI_PROMPT_INTRO = '';
   static AI_PROMPT_RHYME = '';
@@ -150,7 +150,7 @@ class GenAI {
       return;
     }
 
-    // TODO
+    // TODO5
     // Build and send a prompt to the LLM
     // Log the token usage
     // Parse the response to a valid JSON format
@@ -160,8 +160,11 @@ class GenAI {
 
   // Creates a poetry slam with AI data and shows it as draft
   static async createPoetrySlamWithAI(aiResult, req, srv, db) {
-    // TODO
+    // TODO6
     // Create and return a draft entity of a Poetry Slam based on the given result of the call to the LLM
+
+
+    
     return null;
   }
 }

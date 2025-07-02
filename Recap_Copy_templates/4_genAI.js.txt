@@ -1,0 +1,156 @@
+srv/lib/genAI.js
+
+Prompt:
+  // TODO4
+
+static AI_PROMPT_INTRO =
+    'You work in the marketing department of a company that organizes Poetry Slams. For these events, propose a title and description to attract a large audience. ' +
+    "Your task is to convince people to attend as spectators. For each Poetry Slam, you're given tags that should be incorporated into the title and description. " +
+    'The title should be short and eye-catching, and the description should be maximum six lines long. ' +
+    'The title and the description may have line breaks but not written as control characters, like \\n. ';
+  static AI_PROMPT_RHYME = 'The description should be written in rhymes.';
+  static AI_PROMPT_LANGUAGE =
+    'The title and the description should be in language: ';
+
+
+
+
+
+
+
+
+  // TODO5
+
+  // Build and send a prompt to the LLM
+  // Log the token usage
+  // Parse the response to a valid JSON format
+
+  const response = await this.chatClient.run(
+      {
+        messages: [
+          {
+            role: 'user',
+            content: `tags: ${tags}`
+          },
+          {
+            role: 'system',
+            content:
+              `${GenAI.AI_PROMPT_INTRO} ${rhyme ? GenAI.AI_PROMPT_RHYME : ''} ` +
+              `${GenAI.AI_PROMPT_LANGUAGE}${language}.`
+          }
+        ],
+        // The response format json_schema sets the output response to a given JSON schema
+        response_format: {
+          type: 'json_schema',
+          json_schema: {
+            name: 'PRA',
+            schema: {
+              type: 'object',
+              properties: {
+                title: { type: 'string' },
+                description: { type: 'string' }
+              },
+              required: ['title', 'description'],
+              additionalProperties: false
+            }
+          }
+        },
+        // The temperature defines how deterministic AI is (lower value more deterministic, higher value more creative).
+        temperature: 0.5,
+        max_tokens: 300
+      },
+      {
+        params: {
+          // Use the newer API version to support the JSON schema in the response format
+          'api-version': '2024-10-21'
+        }
+      }
+    );
+
+    const tokenUsage = response.getTokenUsage();
+
+    console.info(
+      `createWithAI: Total tokens consumed by the request: ${tokenUsage.total_tokens}\n` +
+        `Input prompt tokens consumed: ${tokenUsage.prompt_tokens}\n` +
+        `Output text completion tokens consumed: ${tokenUsage.completion_tokens}\n`
+    );
+
+    let responseObject;
+    try {
+      responseObject = JSON.parse(response.getContent());
+    } catch (error) {
+      req.error(httpCodes.internal_server_error, 'ACTION_AI_NO_ACCESS');
+      console.error(
+        `CREATE_WITH_AI: AI response has not the correct JSON format: ${error}`
+      );
+      return { title: '', description: '' };
+    }
+
+  if (
+      !Object.prototype.hasOwnProperty.call(responseObject, 'title') ||
+      !Object.prototype.hasOwnProperty.call(responseObject, 'description')
+    ) {
+      req.error(httpCodes.internal_server_error, 'ACTION_AI_NO_ACCESS');
+      console.error(
+        `CREATE_WITH_AI: AI response has not the correct JSON format`
+      );
+      return { title: '', description: '' };
+    }
+
+    return responseObject;
+
+
+
+
+
+
+ // TODO6
+    // Create and return a draft entity of a Poetry Slam based on the given result of the call to the LLM
+
+     const { DraftAdministrativeData } = srv.entities;
+    const { PoetrySlams } = srv.entities;
+
+    const insertResult = await db.run(
+      INSERT.into(DraftAdministrativeData).entries([
+        {
+          DraftUUID: cds.utils.uuid(),
+          CreationDateTime: req.context.timestamp,
+          CreatedByUser: req.context.user.id,
+          DraftIsCreatedByMe: true,
+          LastChangeDateTime: req.context.timestamp,
+          LastChangedByUser: req.context.user.id,
+          InProcessByUser: req.context.user.id,
+          DraftIsProcessedByMe: true
+        }
+      ])
+    );
+
+    // Calculate a date three month from now and 8 a.m.
+    const proposedEventDate = new Date();
+    proposedEventDate.setMonth(proposedEventDate.getMonth() + 3);
+    proposedEventDate.setHours(20, 0, 0, 0);
+
+    const [{ DraftUUID }] = [...insertResult];
+    const ID = cds.utils.uuid();
+    await db.run(
+      INSERT.into(PoetrySlams.drafts.name).entries({
+        ID: ID,
+        title: aiResult.title,
+        description: aiResult.description,
+        maxVisitorsNumber: 100,
+        visitorsFeeAmount: 42,
+        dateTime: proposedEventDate,
+        visitorsFeeCurrency_code: 'EUR',
+        DraftAdministrativeData_DraftUUID: DraftUUID,
+        HasActiveEntity: false,
+        HasDraftEntity: false
+      })
+    );
+    const result = await db.run(
+      SELECT.one.from(PoetrySlams.drafts).where({ ID: ID })
+    );
+    result.IsActiveEntity = false;
+    return result;
+
+
+

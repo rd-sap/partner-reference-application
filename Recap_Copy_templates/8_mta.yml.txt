@@ -1,0 +1,15 @@
+mta.yaml
+
+
+ # TODO8
+   # AI Core Service
+  - name: poetry-slams-aicore
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: aicore
+      service-plan: extended
+
+
+
+ # TODO9
+   - name: poetry-slams-aicore

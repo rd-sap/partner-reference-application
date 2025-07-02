@@ -105,8 +105,12 @@ module.exports = async (srv) => {
   // Implementation of entity actions (entity PoetrySlams)
   // ----------------------------------------------------------------------------
 
-  // TODO
+ 
   // Create a custom event handler to create a Poetry Slam supported by AI
+  // TODO7
+
+
+
 
 
   // Entity action "cancel": Set the status of poetry slam to canceled
