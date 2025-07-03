@@ -1,8 +1,0 @@
-app/poetryslams/annotations.cds
-  // TODO2
-
-    {
-        $Type : 'UI.DataFieldForAction',
-        Action: 'PoetrySlamService.createWithAI',
-        Label : '{i18n>createWithAI}'
-    },

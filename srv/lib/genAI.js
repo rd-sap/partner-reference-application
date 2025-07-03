@@ -5,11 +5,15 @@ const { httpCodes } = require('./codes');
 
 class GenAI {
   chatClient;
-  // TODO4
   // Add prompt information
-  static AI_PROMPT_INTRO = '';
-  static AI_PROMPT_RHYME = '';
-  static AI_PROMPT_LANGUAGE = '';
+  static AI_PROMPT_INTRO =
+    'You work in the marketing department of a company that organizes Poetry Slams. For these events, propose a title and description to attract a large audience. ' +
+    "Your task is to convince people to attend as spectators. For each Poetry Slam, you're given tags that should be incorporated into the title and description. " +
+    'The title should be short and eye-catching, and the description should be maximum six lines long. ' +
+    'The title and the description may have line breaks but not written as control characters, like \\n. ';
+  static AI_PROMPT_RHYME = 'The description should be written in rhymes.';
+  static AI_PROMPT_LANGUAGE =
+    'The title and the description should be in language: ';
 
   // Defines the large language model that is used
   static MODEL_NAME = 'gpt-4o';

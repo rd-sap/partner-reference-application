@@ -1,8 +1,0 @@
-package.json
-// TODO3
-
-npm add @sap-ai-sdk/ai-api
-npm add @sap-ai-sdk/foundation-models
-
- "@sap-ai-sdk/ai-api": "^1.15.0",
-    "@sap-ai-sdk/foundation-models": "^1.15.0",

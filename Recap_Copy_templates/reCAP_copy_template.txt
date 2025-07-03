@@ -72,19 +72,6 @@ package.json
 
 srv/lib/genAI.js
 
-  Prompt:
-    // TODO4
-
-  static AI_PROMPT_INTRO =
-      'You work in the marketing department of a company that organizes Poetry Slams. For these events, propose a title and description to attract a large audience. ' +
-      "Your task is to convince people to attend as spectators. For each Poetry Slam, you're given tags that should be incorporated into the title and description. " +
-      'The title should be short and eye-catching, and the description should be maximum six lines long. ' +
-      'The title and the description may have line breaks but not written as control characters, like \\n. ';
-    static AI_PROMPT_RHYME = 'The description should be written in rhymes.';
-    static AI_PROMPT_LANGUAGE =
-      'The title and the description should be in language: ';
-
-
   // TODO5
 
   // Build and send a prompt to the LLM
@@ -146,7 +133,7 @@ srv/lib/genAI.js
 
 
 
-    // TODO6
+  // TODO6
     // Create and return a draft entity of a Poetry Slam based on the given result of the call to the LLM
 
     const { DraftAdministrativeData } = srv.entities;
@@ -201,13 +188,6 @@ srv/lib/genAI.js
 
 srv/poetryslam/poetrySlamServicePoetrySlamsImplementation.js
 
-
-  // TODO7a
-  const GenAI = require('../lib/genAI');
-
-
-
-
   // TODO7
 
   // Entity action: Create a poetry slam with generative artificial intelligence
@@ -249,7 +229,7 @@ npx cds watch –-profile hybrid
 mta.yaml
 
 
- # TODO8
+ # TODO8: Add AI Core service
    # AI Core Service
   - name: poetry-slams-aicore
     type: org.cloudfoundry.managed-service
