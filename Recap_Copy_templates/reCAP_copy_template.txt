@@ -215,11 +215,6 @@ srv/poetryslam/poetrySlamServicePoetrySlamsImplementation.js
 
 
 TODO 10
-npm ci
-
-cf login --sso
-- Org recap
-- Space example
 
 npx cds bind -2 poetry-slams-aicore 
 npx cds watch –-profile hybrid
