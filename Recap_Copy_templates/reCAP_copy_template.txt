@@ -1,3 +1,8 @@
+npm run start
+
+
+
+
 srv/poetryslam/poetrySlamService.cds
   // TODO1
 
