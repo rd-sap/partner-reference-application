@@ -36,7 +36,8 @@ modules:
       - name: poetry-slams-db
       - name: poetry-slams-destination
       # TODO9
-
+      # - name: poetry-slams-aicore 
+      
       # Reference AI Core service
     provides:
       - name: poetry-slams-srv-api # required by consumers of CAP services (e.g. approuter)
@@ -294,3 +295,9 @@ resources:
 
   # Add AI Core Service
     # TODO8
+
+  # - name: poetry-slams-aicore
+  #   type: org.cloudfoundry.managed-service
+  #   parameters:
+  #     service: aicore
+  #     service-plan: extended
